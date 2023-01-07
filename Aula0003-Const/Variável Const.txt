@@ -1,0 +1,135 @@
+const
+
+A constdeclaração cria constantes com escopo de bloco, bem como variáveis ​​declaradas usando a palavra- let chave. 
+O valor de uma constante não pode ser alterado por meio de reatribuição (ou seja, usando o operador de atribuição ) 
+e não pode ser redeclarado (ou seja, por meio de uma declaração de variável ). No entanto, se uma constante for 
+um objeto ou array , suas propriedades ou itens podem ser atualizados ou removidos.
+
+const number = 42;
+
+try {
+  number = 99;
+} catch (err) {
+  console.log(err);
+  // saída esperada: TypeError: atribuição inválida para const `number'
+  // (Nota: a saída exata pode ser dependente do navegador)
+}
+
+console.log(number);
+// saída esperada: 42
+
+==========================================================================================================
+
+Sintaxe
+
+const name1 = value1 [, name2 = value2 [, ... [, nameN = valueN]]]
+
+nameN
+O nome da constante, que pode ser qualquer identificador legal .
+
+valueN
+O valor da constante. Isso pode ser qualquer expressão legal, incluindo uma expressão de função.
+A sintaxe de atribuição de desestruturação também pode ser usada para declarar variáveis.
+
+const { bar } = foo; // where foo = { bar:10, baz:12 };
+/* Isso cria uma constante com o nome 'bar', que tem um valor de 10 */
+
+==========================================================================================================
+
+Descrição
+
+Essa declaração cria uma constante cujo escopo pode ser global ou local para o bloco no qual é declarada. 
+As constantes globais não se tornam propriedades do windowobjeto, ao contrário das varvariáveis.
+É necessário um inicializador para uma constante. Você deve especificar seu valor na mesma declaração. 
+(Isso faz sentido, já que não pode ser alterado posteriormente.)
+A constdeclaração cria uma referência somente leitura para um valor. Isso não significa que o valor que contém 
+é imutável - apenas que o identificador da variável não pode ser reatribuído. Por exemplo, no caso em que o conteúdo é um objeto, 
+isso significa que o conteúdo do objeto (por exemplo, suas propriedades) pode ser alterado.
+Todas as considerações sobre a zona morta temporal se aplicam a ambos lete const. Por esse motivo, constas declarações 
+são comumente consideradas não içadas. Uma constante não pode compartilhar seu nome com uma função ou variável no mesmo escopo.
+Se você estiver experimentando um REPL, como o console da Web do Firefox ( Ferramentas > Desenvolvedor da Web > Console da Web ) 
+e executar duas constdeclarações com o mesmo nome em duas entradas separadas, poderá obter um erro de sintaxe devido à nova declaração. 
+Consulte uma discussão mais detalhada sobre esse problema no bug 1580891 . O console Chrome permite constredeclarações 
+entre diferentes entradas REPL. Ao contrário var, constcomeça declarações , não instruções. 
+Isso significa que você não pode usar uma declaração isolada constcomo o corpo de um bloco
+(o que faz sentido, já que não há como acessar a variável).
+
+if (true) const a = 1; // SyntaxError: Token inesperado 'const'
+
+==========================================================================================================
+
+Exemplos
+
+Uso constante básico
+As constantes podem ser declaradas com letras maiúsculas ou minúsculas, mas uma convenção comum é usar todas as letras maiúsculas.
+
+// define MY_FAV como uma constante e dá a ela o valor 7
+const MY_FAV = 7;
+
+// isso gerará um erro - Uncaught TypeError: Atribuição à variável constante.
+MY_FAV = 20;
+
+// MY_FAV é 7
+console.log("my favorite number is: " + MY_FAV);
+
+// tentando redeclarar uma constante gera um erro
+// Uncaught SyntaxError: O identificador 'MY_FAV' já foi declarado
+const MY_FAV = 20;
+
+// o nome MY_FAV é reservado para a constante acima, então isso também falhará
+var MY_FAV = 20;
+
+// isso lança um erro também
+let MY_FAV = 20;
+
+==========================================================================================================
+
+Escopo do bloco
+É importante observar a natureza do escopo do bloco.
+
+if (MY_FAV === 7) {
+  // isso é bom e cria uma variável MY_FAV com escopo de bloco
+  // (funciona igualmente bem com let para declarar uma variável não const com escopo de bloco)
+  let MY_FAV = 20;
+
+  // MY_FAV agora é 20
+  console.log("my favorite number is " + MY_FAV);
+
+  // isso é içado para o contexto global e gera um erro
+  var MY_FAV = 20;
+}
+
+// MY_FAV ainda é 7
+console.log("my favorite number is " + MY_FAV);
+
+==========================================================================================================
+
+const precisa ser inicializado
+
+// lança um erro
+// Uncaught SyntaxError: Inicializador ausente na declaração const
+
+const FOO;
+
+==========================================================================================================
+
+const em objetos e arrays
+consttambém funciona em objetos e arrays. A tentativa de sobrescrever o objeto gera um erro "Atribuição à variável constante".
+
+const MY_OBJECT = { key: "value" };
+MY_OBJECT = { OTHER_KEY: "value" };
+
+No entanto, as chaves de objeto não são protegidas, portanto, a instrução a seguir é executada sem problemas.
+
+MY_OBJECT.key = "otherValue";
+
+Você precisaria usar Object.freeze()para tornar um objeto imutável.
+O mesmo se aplica a matrizes. A atribuição de uma nova matriz à variável gera um erro "Atribuição à variável constante".
+
+const MY_ARRAY = [];
+MY_ARRAY = ["B"];
+
+Ainda assim, é possível inserir itens no array e, assim, modificá-lo.
+
+MY_ARRAY.push("A"); // ["A"]
+

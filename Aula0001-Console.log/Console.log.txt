@@ -1,0 +1,45 @@
+console.log()
+
+O console.log()método gera uma mensagem para o console da web. 
+A mensagem pode ser uma única string (com valores de substituição opcionais) 
+ou pode ser um ou mais objetos JavaScript.
+
+==========================================================================================================
+
+Sintaxe
+
+log(obj1)
+log(obj1, /* …, */ objN)
+log(msg)
+log(msg, subst1, /* …, */ substN)
+
+==========================================================================================================
+
+Parâmetros
+
+obj1…objN
+Uma lista de objetos JavaScript para saída. 
+As representações de string de cada um desses objetos são anexadas na ordem listada e exibidas. 
+Esteja avisado de que, se você registrar objetos nas versões mais recentes do Chrome e Firefox, 
+o que será registrado no console é uma referência ao objeto , que não é necessariamente o 'valor' 
+do objeto no momento em que você chama console.log(), 
+mas é o valor do objeto no momento em que você abre o console.
+
+msg
+Uma string JavaScript contendo zero ou mais strings de substituição.
+
+subst1…substN
+Objetos JavaScript com os quais substituir strings de substituição dentro de msg. 
+Isso lhe dá controle adicional sobre o formato da saída.
+
+Valor de retorno
+Nenhum ( undefined).
+
+==========================================================================================================
+
+Objetos de log
+
+Não use console.log(obj), use console.log(JSON.parse(JSON.stringify(obj))).
+Dessa forma, você tem certeza de que está vendo o valor de objno momento em que o registra. 
+Caso contrário, muitos navegadores fornecem uma exibição ao vivo que é atualizada constantemente 
+à medida que os valores mudam. Isso pode não ser o que você deseja.

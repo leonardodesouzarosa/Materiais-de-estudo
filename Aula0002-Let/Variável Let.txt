@@ -1,0 +1,240 @@
+let
+
+A declaração let declara uma variável local com escopo de bloco, opcionalmente inicializando-a com um valor.
+
+let x = 1;
+
+if (x === 1) {
+  let x = 2;
+
+  console.log(x);
+  // saída esperada: 2
+}
+
+console.log(x);
+// saída esperada: 1
+
+==========================================================================================================
+
+Sintaxe
+
+let name1 [= value1] [, name2 [= value2]] [, ..., nameN [= valueN]
+
+==========================================================================================================
+
+Parâmetros
+
+nomeN
+Os nomes da variável ou variáveis ​​a serem declaradas. Cada um deve ser um identificador JavaScript válido.
+
+valorN Opcional
+Para cada variável declarada, você pode, opcionalmente, especificar seu valor inicial para qualquer expressão JavaScript válida.
+Alternativamente, a sintaxe Destructuring Assignment também pode ser usada para declarar variáveis.
+
+let { bar } = foo; // where foo = { bar:10, baz:12 };
+/* Isso cria uma variável com o nome 'bar', que tem um valor de 10 */
+
+==========================================================================================================
+
+Descrição
+
+let permite declarar variáveis ​​que são limitadas ao escopo de uma instrução de bloco ou expressão na qual ela é usada, 
+ao contrário da palavra-chave var, que declara uma variável globalmente ou localmente para uma função inteira, 
+independentemente do escopo do bloco. A outra diferença entre var e let é que o último só pode ser acessado após 
+sua declaração ser alcançada (ver zona morta temporal). Por esse motivo, as declarações let são comumente consideradas não içadas.
+Assim como const, o let não cria propriedades do objeto window quando declarado globalmente (no escopo superior).
+Uma explicação de por que o nome "let" foi escolhido pode ser encontrada aqui.
+Muitos problemas com variáveis ​​let podem ser evitados declarando-as no início do escopo em que 
+são usadas (fazer isso pode afetar a legibilidade).
+Ao contrário de var, let começa com declarações, não com declarações. Isso significa que você não 
+pode usar uma declaração lone let como o corpo de um bloco (o que faz sentido, já que não há como acessar a variável).
+
+if (true) let a = 1; // SyntaxError: declaração léxica não pode aparecer em um contexto de instrução única
+
+==========================================================================================================
+
+Exemplos
+
+regras de escopo
+As variáveis ​​declaradas por let têm seu escopo no bloco para o qual são declaradas, bem como em quaisquer sub-blocos contidos. 
+Desta forma, let funciona muito parecido com var. A principal diferença é que o escopo de uma variável var é toda a função envolvente:
+
+function varTest() {
+  var x = 1;
+  {
+    var x = 2;  // mesma variável!
+    console.log(x);  // 2
+  }
+  console.log(x);  // 2
+}
+
+function letTest() {
+  let x = 1;
+  {
+    let x = 2;  // variável diferente
+    console.log(x);  // 2
+  }
+  console.log(x);  // 1
+}
+
+No nível superior de programas e funções, let, ao contrário de var, não cria uma propriedade no objeto global. Por exemplo:
+
+var x = 'global';
+let y = 'global';
+console.log(this.x); // "global"
+console.log(this.y); // undefined
+
+==========================================================================================================
+
+Redeclarações
+A declaração novamente da mesma variável dentro da mesma função ou escopo de bloco gera um SyntaxError.
+
+if (x) {
+  let foo;
+  let foo; // SyntaxError lançado.
+}
+
+Você pode encontrar erros nas instruções switch porque há apenas um bloco.
+
+let x = 1;
+switch(x) {
+  case 0:
+    let foo;
+    break;
+
+  case 1:
+    let foo; // SyntaxError para redeclaração.
+    break;
+}
+
+Um bloco aninhado dentro de uma cláusula case criará um novo ambiente léxico com escopo de bloco, 
+evitando os erros de redeclaração mostrados acima.
+
+let x = 1;
+
+switch(x) {
+  case 0: {
+    let foo;
+    break;
+  }
+  case 1: {
+    let foo;
+    break;
+  }
+}
+
+Se você estiver experimentando um REPL, como o console da Web do Firefox (Ferramentas > Desenvolvedor da Web > Console da Web), 
+e executar duas declarações let com o mesmo nome em duas entradas separadas, poderá obter o mesmo erro de nova declaração. 
+Veja uma discussão mais detalhada sobre esse problema no bug 1580891. 
+O console do Chrome permite re-declarações entre diferentes entradas REPL.
+
+==========================================================================================================
+
+Zona morta temporal (TDZ)
+Diz-se que uma variável let ou const está em uma "zona morta temporal" (TDZ) desde o início do bloco até que a execução 
+do código atinja a linha em que a variável é declarada e inicializada.
+
+Enquanto estiver dentro da TDZ, a variável não foi inicializada com um valor e qualquer tentativa de acessá-la resultará 
+em um ReferenceError. A variável é inicializada com um valor quando a execução atinge a linha de código onde foi declarada. 
+Se nenhum valor inicial foi especificado com a declaração da variável, ela será inicializada com um valor indefinido.
+
+Isso difere das variáveis ​​var, que retornarão um valor indefinido se forem acessadas antes de serem declaradas. 
+O código abaixo demonstra o resultado diferente quando let e var são acessados ​​no código antes da linha em que são declarados.
+
+{ // TDZ começa no início do escopo
+  console.log(bar); // undefined
+  console.log(foo); // ReferenceError
+  var bar = 1;
+  let foo = 2; Fim da TDZ (para foo)
+}
+
+O termo "temporal" é usado porque a zona depende da ordem de execução (tempo) e não da ordem em que o código é escrito (posição). 
+Por exemplo, o código abaixo funciona porque, embora a função que usa a variável let apareça antes da variável ser declarada, 
+a função é chamada fora da TDZ.
+
+{
+  // TDZ começa no início do escopo
+  const func = () => console.log(letVar); // OK
+
+  // Dentro do TDZ letVar lances de acesso `ReferenceError`
+
+  let letVar = 3; // Fim da TDZ (for letVar)
+  func(); // Chamado fora da TDZ!
+}
+
+==========================================================================================================
+
+O TDZ e o (typeof) tipo de Usar o operador
+
+// resulta em um 'ReferenceError'
+console.log(typeof i);
+let i = 10;
+
+Isso difere de usar typeof para variáveis ​​não declaradas e variáveis ​​que contêm um valor indefinido:
+
+// imprime 'undefined'
+console.log(typeof undeclaredVariable);
+
+==========================================================================================================
+
+TDZ combinado com escopo léxico
+O código a seguir resulta em um ReferenceError na linha mostrada:
+
+function test() {
+  var foo = 33;
+  if (foo) {
+    let foo = foo + 55; // ReferenceError
+  }
+}
+test();
+
+O bloco if é avaliado porque a var externa foo tem um valor. No entanto, devido ao escopo léxico, 
+esse valor não está disponível dentro do bloco: o identificador foo dentro do bloco if é let foo. 
+A expressão (foo + 55) lança um ReferenceError porque a inicialização de let foo não foi 
+concluída — ainda está na zona morta temporal.
+Esse fenômeno pode ser confuso em uma situação como a seguinte. A instrução let n de n.a já está 
+do escopo privado do bloco do loop for. Assim, o identificador n.a é resolvido para a propriedade 
+'a' do objeto 'n' localizado na primeira parte da própria instrução (let n).
+Isso ainda está na zona morta temporal, pois sua instrução de declaração não foi alcançada e encerrada.
+
+function go(n) {
+  // aqui está definido!
+  console.log(n); // { a: [1, 2, 3] }
+
+  for (let n of n.a) { // ReferenceError
+    console.log(n);
+  }
+}
+
+go({a: [1, 2, 3]});
+
+==========================================================================================================
+
+Outras situações
+
+Quando usado dentro de um bloco, let limita o escopo da variável a esse bloco. Observe a diferença entre var, 
+cujo escopo está dentro da função onde é declarado.
+
+var a = 1;
+var b = 2;
+
+if (a === 1) {
+  var a = 11; // o escopo é global
+  let b = 22; // o escopo está dentro do bloco if
+
+  console.log(a);  // 11
+  console.log(b);  // 22
+}
+
+console.log(a); // 11
+console.log(b); // 2
+
+No entanto, esta combinação de declaração var e let abaixo é um SyntaxError devido a var ser içada para o topo do bloco. 
+Isso resulta em uma nova declaração implícita da variável.
+
+let x = 1;
+
+{
+  var x = 2; // SyntaxError para redeclaração
+}
+

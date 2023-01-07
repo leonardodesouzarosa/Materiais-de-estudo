@@ -1,0 +1,186 @@
+Declaração de variaveis Var Let Const
+
+Não podemos criar variáveis com palavras reservadas
+Variáveis precisam ter nomes significativos
+Não pode começar o nome de uma variável com um número
+Não podem conter espaços ou traços
+Utilizamos camelCase
+Case-sensitive
+Não podemos redeclarar variáveis com let ou const
+Sempre iniciar uma let ou const com um valor recomendado
+Posso pegar o valor de uma variavel ou const e atribuir a outra variavel ou outra const
+NÃO UTILIZE VAR, UTILIZE LET OU CONST
+
+=================================================================
+
+Template strings ${.....}
+
+console.log(`${nome} ${sobrenome} nasceu no ano de ${anoNascimento}`);
+
+=================================================================
+
+Dados primitivos
+
+No JavaScript, existem 6 tipos primitivos:
+
+String = 'leo', "leo", `leo`
+Number = 12
+Boolean = true, false
+Null = Não aponta para lugar nenhum da memória mas ele é diferente de undefined 
+undefined = Não aponta para lugar nenhum da memoria
+Symbol = Novo no ECMAScript 6
+
+=================================================================
+
+Conversão de strings com Parseint() ParseFloat() Number()
+
+ParseInt('10') função analisa um argumento de string e retorna um inteiro.
+ParseFloat('10.5') função analisa um argumento de string e retorna um número de ponto flutuante.
+Number('10.5') os valores representam números de ponto flutuante como 37 ou -9.25.
+
+=================================================================
+
+Ordem de precedência
+ 
+1 - Parenteses () 
+2 - Exponenciação (**)
+3 - Multiplicação (*)
+4 - Divisão (/)
+5 - Restante ou Modulo (%)
+6 - Adição (+) , Subtração (-)
+
+=================================================================
+
+Operadores aritméticos
+
+Os operadores aritméticos usam valores numéricos (literais ou variáveis) 
+como seus operandos e retornam um único valor numérico.
+
+Adição (+)
+Subtração (-)
+Multiplicação (*)
+Divisão (/)
+Exponenciação (**)
+Restante ou Modulo (%)
+
+=================================================================
+
+Operadores relacionais
+
+Um operador de comparação compara seus operandos e retorna um valor 
+booleano com base na veracidade da comparação.
+
+Menos que (<)
+Maior que (>)
+Menor ou igual (<=)
+Maior ou igual (>=)
+Nota: (=>) não é um operador, mas a notação para funções de seta.
+(instanceof) operador determina se um objeto é uma instância de outro objeto.
+(in) operador determina se um objeto tem uma determinada propriedade.
+
+=================================================================
+
+Operadores de igualdade
+
+O resultado da avaliação de um operador de igualdade é sempre do tipo 
+booleano com base na veracidade da comparação.
+
+Igualdade (==)
+Desigualdade (!=)
+Igualdade estrita (===)
+Desigualdade estrita (!==)
+
+=================================================================
+
+Operadores de deslocamento bit a bit
+
+Operações para deslocar todos os bits do operando.
+
+Deslocamento à esquerda (<<)
+Deslocamento à direita (>>)
+Deslocamento à direita sem sinal (>>>)
+
+=================================================================
+
+Operadores binários
+
+Os operadores bit a bit tratam seus operandos como um conjunto de 32 bits 
+(zeros e uns) e retornam valores numéricos padrão do JavaScript.
+
+E (&)
+OU (|)
+XOR (^)
+
+=================================================================
+
+Operadores lógicos binários
+
+Os operadores lógicos implementam valores booleanos (lógicos) 
+e têm comportamento de curto-circuito.
+
+AND Lógico (&&)
+OU Lógico (||)
+Operador de coalescência nula (??)
+
+=================================================================
+
+Operador condicional ternário
+
+O operador condicional retorna um dos dois valores com base no valor lógico da condição.
+
+(condition ? ifTrue : ifFalse)
+
+=================================================================
+
+Operadores de atribuição
+
+Um operador de atribuição atribui um valor ao seu operando esquerdo 
+com base no valor de seu operando direito.
+
+Atribuição (=)
+Atribuição de multiplicação (*=)
+Atribuição de divisão (/=)
+Atribuição restante (%=)
+Atribuição de adição (+=)
+Atribuição de subtração (-=)
+Atribuição de turno à esquerda (<<=)
+Atribuição de turno à direita (>>=)
+Atribuição de deslocamento à direita não assinada (>>>=)
+Atribuição AND (&=)
+Atribuição XOR (^=)
+Atribuição OR (|=)
+Atribuição de exponenciação (**=)
+Atribuição lógica AND (&&=)
+Atribuição lógica OU (||=)
+Atribuição de coalescência nula (??=)
+Array = [a, b]  
+Objeto = { a, b }  
+
+A atribuição de desestruturação permite que você atribua as 
+propriedades de uma matriz ou objeto a variáveis ​​usando uma 
+sintaxe semelhante a literais de matriz ou objeto.
+
+=================================================================
+
+Operadores de rendimento
+
+(yield) Pausar e retomar uma função do gerador.
+(yield*) Delegue para outra função geradora ou objeto iterável.
+
+=================================================================
+
+Operadores de incremento
+
+Aumentar e diminuir operadores de incremento de pós-fixo/prefixo e decremento de pós-fixo/prefixo.
+
+Operador de incremento pós-fixado (A++)
+Operador de decremento pós-fixado (A--)
+Operador de incremento de prefixo (++A)
+Operador de decremento de prefixo (--A)
+
+=================================================================
+
+Prompt() método exibe uma caixa de diálogo que solicita uma entrada do usuário.
+
+=================================================================
+
