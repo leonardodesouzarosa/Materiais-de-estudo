@@ -1,3 +1,38 @@
+Localizar os aqruivos 
+
+Digito dir para localizar todas as pasta do meu disco 
+Depois dou um cd para entrar na pasta do projeto 
 
 =================================================================
+
+Comando GIT para fazer um commit 
+
+Inciando um repositorio vazio com o comando git init e dar entrer 
+git status vejo como esta o aqruivo
+com o git add .  adciono todos os arquivos presente no meu projeto para iniciar o commit
+git status vejo que ele esta pronto para fazer o commit
+git commit -m "aqui coloco uma mensagem" e dou entrer 
+git status 
+depois do commit vou ate o github e crio um repositorio com o nome do projeto 
+em seguida copio o comando que aparece quando crio um repositorio novo exemplo 
+
+git remote add origin https://github.com/leonardodesouzarosa/Materiais-de-estudo.git
+ git branch -M main 
+git push -u origin main
+
+vou ate meu git novamente e colo esse comando e dou entre com isso vai ser 
+feito o upload do meu projeto para o github
+
+=================================================================
+
+Comando GIT para aualizar meu repositorio
+
+seleciono a pasta do projeto novamente com cd 
+dou um git status para ver as modificações 
+dou um  git add .  adciono todos os arquivos presente no meu projeto para iniciar o commit
+git status vejo que ele esta pronto para fazer o commit
+git commit -m "nova mesnsagem exemplo modificações" e dou entrer 
+git status 
+para atualizar no github dou o comando git push 
+git status pronto esta tudo atualizado 
 
